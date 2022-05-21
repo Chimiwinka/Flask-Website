@@ -1,4 +1,3 @@
-9d750e0a6dc9b42a04c5b5224215ee9a0347c618
-
-21122849
-
+First ever flask website
+Built using methods learned in school.
+Use of blog pages, user accounts and rating system throught javascript.
