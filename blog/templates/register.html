@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+<img id="doggy" src="static\img\doggy.jpg" alt="https://pixabay.com/images/id-1047518/" width="960  " height="640">
+<!--Image by Ilona Krijgsman from Pixabay-->
+<form method="POST" action="" class="register_form">
+
+  {{ form.csrf_token }}
+  <p class="first_name_new"> {{ form.username.label }} {{ form.username }}</p>
+  <p class="password_new"> {{ form.password.label }} {{ form.password }}</p>
+  <p class="password_confirm"> {{ form.confirm_password.label }} {{ form.confirm_password }}</p>
+  <p class="email_new"> {{form.email.label}} {{form.email}}</p>
+  <input type="submit" value="Register">
+  <div>{% for error in form.errors.items()  %} <span style="color: red;">{{ error[1] }}</span>
+
+    {% endfor %}
+  </div>
+</form>
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class=posts>
+    <p class="post_title_indv">{{ post.title }}</p>
+    <img src="{{ url_for('static', filename='img/' + post.image_file)}}" width="480" height="320">
+    <div id="post_rating">
+        <p> Current rating is: {{average_rating }}! </p>
+    </div>
+    <form id="r_form" method="POST" action="" class="post_rating_form">
+        {{ rating_form.csrf_token }}
+        {% if current_user.is_authenticated %}
+        <p> Leave a rating: {{ rating_form.rating (id = 'rating') }} </p>
+        <div class='rating_container'>
+            <button id="1" class='rating_button'> 1 </button>
+            <button id="2" class='rating_button'> 2 </button>
+            <button id="3" class='rating_button'> 3 </button>
+            <button id="4" class='rating_button'> 4 </button>
+            <button id="5" class='rating_button'> 5 </button>
+        </div>
+
+        {% endif %}
+    </form>
+
+
+    <p>{{ post.content }}</p>
+    {% for comment in comments %}
+    <p class="'detailed_description">{{ comment.content }} <small>Author:{{ comment.author_name }}</small></p>
+    {% endfor %}
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div class="comment_text">
+            {% if current_user.is_authenticated %}
+            {{ form.comment.label }} {{ form.comment }}
+            {% for error in form.errors.items()  %}<span style="color: red;">[{{ error1 }}]</span>
+            {% endfor %}
+        </div>
+        <div class="">{{ form.submit() }}</div>
+    </form>
+    {% else %}
+    <p>Please register to post a comment and give a rating!</p>
+    {% endif %}
+</div>
+
+<script>
+    let rating_btn = document.getElementsByClassName('rating_container');
+    let rating = document.getElementById('rating');
+    rating_btn[0].addEventListener("click", function (event) {
+        rating.value = event.target.id;
+        document.getElementById("r_form").submit();
+    });
+</script>
+
+
+{% endblock content %}

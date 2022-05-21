@@ -1,0 +1,56 @@
+<!--- Layout template used for presentting information on the website consistently, as well as navigation 
+ --->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel=stylesheet type=text/css href="{{ url_for('static',
+ filename='style.css') }}">
+  <title>Chris' Space</title>
+</head>
+
+<body>
+  <header id="top_navig_bar" class="first_header">
+    <div href="{{ url_for('home') }}" class="head_title"> Chris' Space</div>
+    {% if current_user.is_authenticated %}
+
+    <a>Hello, {{ current_user.username }}! </a>
+    <a href="{{ url_for('home') }}" id="home" class="header">Home</a>
+    <a href="{{ url_for('logout') }}" id="logout" class="header">Logout</a> {% else %}
+    <div class="nav-item nav-link" id=pers_greet>Hello, Guest!</div>
+    <a href="{{ url_for('home') }}" id="home" class="header">Home</a>
+    <a href="{{ url_for('login') }}" id="login" class="header">Login</a>
+    <a href="{{ url_for('register') }}" id="register" class="header">Register</a>
+    {% endif %}
+
+  </header>
+  <div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+  </div>
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+  <footer id="footer" class="footer">
+    <a href="{{ url_for('contactdetails') }}" class="header">Contact Details</a>
+    <a href="{{ url_for('disclaimer') }}" class="header">Disclaimer</a>
+    <a href="{{ url_for('privacy') }}" class="header">Privacy Policy</a>
+    <a href="{{ url_for('about') }}" class="header">About Me</a>&nbsp
+  </footer>
+</body>
+
+</html>
